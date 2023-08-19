@@ -13,8 +13,8 @@ export class LinksService {
     return await this.linkModel.create(createLinkDto);
   }
 
-  findAll() {
-    return `This action returns all links`;
+  async findAll(): Promise<Link[]> {
+    return this.linkModel.find().exec();
   }
 
   findOne(id: number) {
