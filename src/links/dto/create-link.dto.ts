@@ -1,5 +1,3 @@
-import { Link } from "../schemas/link.schema";
-
 export class CreateLinkDto {
   title: string;
   categoria?: string;
@@ -7,5 +5,5 @@ export class CreateLinkDto {
   segment?: string;
   href?: string;
   iconName?: string;
-  children?: Link[];
+  children?: Object[];
 }
