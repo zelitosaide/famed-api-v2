@@ -21,7 +21,7 @@ export class Link {
   iconName: string;
 
   @Prop()
-  children: []
+  children: [];
 }
 
 export const LinkSchema = SchemaFactory.createForClass(Link);
