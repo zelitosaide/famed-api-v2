@@ -1,9 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { CreateLinkDto } from "./dto/create-link.dto";
 import { UpdateLinkDto } from "./dto/update-link.dto";
+import { InjectModel } from "@nestjs/mongoose";
+import { Link } from "./schemas/link.schema";
+import { Model } from "mongoose";
 
 @Injectable()
 export class LinksService {
+  constructor(@InjectModel(Link.name) private linkModel: Model<Link>) {}
+  
   create(createLinkDto: CreateLinkDto) {
     return "This action adds a new link";
   }
