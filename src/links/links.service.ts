@@ -17,8 +17,8 @@ export class LinksService {
     return this.linkModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} link`;
+  async findOne(id: string): Promise<Link> {
+    return this.linkModel.findOne({ _id: id }).exec();
   }
 
   update(id: number, updateLinkDto: UpdateLinkDto) {

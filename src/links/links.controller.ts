@@ -26,9 +26,14 @@ export class LinksController {
     return this.linksService.findAll();
   }
 
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.linksService.findOne(+id);
+  // @Get(":category")
+  // async findByCategory(@Param("category") category: string): Promise<Link> {
+  //   return this.linksService.findByCategory(category);
+  // }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<Link> {
+    return this.linksService.findOne(id);
   }
 
   @Patch(":id")
