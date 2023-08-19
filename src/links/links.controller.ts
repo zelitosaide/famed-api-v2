@@ -15,11 +15,6 @@ import { UpdateLinkDto } from "./dto/update-link.dto";
 export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
-  // @Post()
-  // create(@Body() createLinkDto: CreateLinkDto) {
-  //   return this.linksService.create(createLinkDto);
-  // }
-
   @Post()
   async create(@Body() createLinkDto: CreateLinkDto) {
     return await this.linksService.create(createLinkDto);
