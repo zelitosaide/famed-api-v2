@@ -1,6 +1,6 @@
 export class CreateLinkDto {
   title: string;
-  categoria?: string;
+  category?: string;
   description?: string;
   segment?: string;
   href?: string;

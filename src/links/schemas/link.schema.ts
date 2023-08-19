@@ -9,7 +9,7 @@ export class Link {
   title: string;
 
   @Prop()
-  categoria: string;
+  category: string;
 
   @Prop()
   description: string;
