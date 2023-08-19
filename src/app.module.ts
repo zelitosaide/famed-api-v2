@@ -3,10 +3,13 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 
 import { MongooseModule } from "@nestjs/mongoose";
-import { LinksModule } from './links/links.module';
+import { LinksModule } from "./links/links.module";
 
 @Module({
-  imports: [MongooseModule.forRoot("mongodb://localhost/fameddbv2"), LinksModule],
+  imports: [
+    MongooseModule.forRoot("mongodb://localhost/fameddbv2"),
+    LinksModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

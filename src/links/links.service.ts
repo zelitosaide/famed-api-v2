@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { CreateLinkDto } from './dto/create-link.dto';
-import { UpdateLinkDto } from './dto/update-link.dto';
+import { Injectable } from "@nestjs/common";
+import { CreateLinkDto } from "./dto/create-link.dto";
+import { UpdateLinkDto } from "./dto/update-link.dto";
 
 @Injectable()
 export class LinksService {
   create(createLinkDto: CreateLinkDto) {
-    return 'This action adds a new link';
+    return "This action adds a new link";
   }
 
   findAll() {
