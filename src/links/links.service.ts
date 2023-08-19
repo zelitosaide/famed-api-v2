@@ -21,6 +21,10 @@ export class LinksService {
     return this.linkModel.findOne({ _id: id }).exec();
   }
 
+  async findByCategory(category: string): Promise<Link> {
+    return this.linkModel.findOne({ category }).exec();
+  }
+
   update(id: number, updateLinkDto: UpdateLinkDto) {
     return `This action updates a #${id} link`;
   }

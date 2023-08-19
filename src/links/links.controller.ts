@@ -26,10 +26,10 @@ export class LinksController {
     return this.linksService.findAll();
   }
 
-  // @Get(":category")
-  // async findByCategory(@Param("category") category: string): Promise<Link> {
-  //   return this.linksService.findByCategory(category);
-  // }
+  @Get(":category")
+  async findByCategory(@Param("category") category: string): Promise<Link> {
+    return this.linksService.findByCategory(category);
+  }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Link> {
