@@ -8,9 +8,9 @@ import { Model } from "mongoose";
 @Injectable()
 export class LinksService {
   constructor(@InjectModel(Link.name) private linkModel: Model<Link>) {}
-  
-  create(createLinkDto: CreateLinkDto) {
-    return "This action adds a new link";
+
+  async create(createLinkDto: CreateLinkDto): Promise<Link> {
+    return await this.linkModel.create(createLinkDto);
   }
 
   findAll() {
