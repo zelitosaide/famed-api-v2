@@ -22,7 +22,7 @@ export class LinksController {
 
   @Post()
   async create(@Body() createLinkDto: CreateLinkDto) {
-    await this.linksService.create(createLinkDto);
+    return await this.linksService.create(createLinkDto);
   }
 
   @Get()

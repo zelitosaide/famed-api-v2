@@ -20,8 +20,8 @@ export class Link {
   @Prop()
   iconName: string;
 
-  @Prop()
-  children: Link[];
+  @Prop([Object])
+  children: Object[];
 }
 
 export const LinkSchema = SchemaFactory.createForClass(Link);
