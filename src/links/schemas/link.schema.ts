@@ -9,6 +9,9 @@ export class Link {
   title: string;
 
   @Prop()
+  categoria: string;
+
+  @Prop()
   description: string;
 
   @Prop()
