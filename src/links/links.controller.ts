@@ -10,6 +10,7 @@ import {
 import { LinksService } from "./links.service";
 import { CreateLinkDto } from "./dto/create-link.dto";
 import { UpdateLinkDto } from "./dto/update-link.dto";
+import { Link } from "./schemas/link.schema";
 
 @Controller("links")
 export class LinksController {
@@ -21,7 +22,7 @@ export class LinksController {
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Link[]> {
     return this.linksService.findAll();
   }
 
