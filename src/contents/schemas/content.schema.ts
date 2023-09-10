@@ -8,7 +8,7 @@ export class Content {
   @Prop({ required: true, unique: true })
   segment: string;
 
-  @Prop()
+  @Prop({ required: true })
   content: string;
 }
 

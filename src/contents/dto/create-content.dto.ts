@@ -1,1 +1,4 @@
-export class CreateContentDto {}
+export class CreateContentDto {
+  segment: string;
+  content: string;
+}
