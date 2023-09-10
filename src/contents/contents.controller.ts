@@ -10,24 +10,30 @@ import {
 import { ContentsService } from "./contents.service";
 import { CreateContentDto } from "./dto/create-content.dto";
 import { UpdateContentDto } from "./dto/update-content.dto";
+import { Content } from "./schemas/content.schema";
 
 @Controller("contents")
 export class ContentsController {
   constructor(private readonly contentsService: ContentsService) {}
 
   @Post()
-  create(@Body() createContentDto: CreateContentDto) {
-    return this.contentsService.create(createContentDto);
+  async create(@Body() createContentDto: CreateContentDto) {
+    return await this.contentsService.create(createContentDto);
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Content[]> {
     return this.contentsService.findAll();
   }
 
+  @Get("segment/:segment")
+  async findBySegment(@Param("segment") segment: string): Promise<Content> {
+    return this.contentsService.findBySegment(segment);
+  }
+
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.contentsService.findOne(+id);
+  async findOne(@Param("id") id: string): Promise<Content> {
+    return this.contentsService.findOne(id);
   }
 
   @Patch(":id")
@@ -36,7 +42,7 @@ export class ContentsController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.contentsService.remove(+id);
+  async remove(@Param("id") id: string) {
+    return this.contentsService.remove(id);
   }
 }
