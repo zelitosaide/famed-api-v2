@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { ContentsService } from './contents.service';
-import { ContentsController } from './contents.controller';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Content, ContentSchema } from './schemas/content.schema';
+import { Module } from "@nestjs/common";
+import { ContentsService } from "./contents.service";
+import { ContentsController } from "./contents.controller";
+import { MongooseModule } from "@nestjs/mongoose";
+import { Content, ContentSchema } from "./schemas/content.schema";
 
 @Module({
   imports: [

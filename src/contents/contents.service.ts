@@ -1,13 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { CreateContentDto } from './dto/create-content.dto';
-import { UpdateContentDto } from './dto/update-content.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Content } from './schemas/content.schema';
+import { Injectable } from "@nestjs/common";
+import { CreateContentDto } from "./dto/create-content.dto";
+import { UpdateContentDto } from "./dto/update-content.dto";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { Content } from "./schemas/content.schema";
 
 @Injectable()
 export class ContentsService {
-  constructor(@InjectModel(Content.name) private contentModel: Model<Content>) {}
+  constructor(
+    @InjectModel(Content.name) private contentModel: Model<Content>,
+  ) {}
 
   async create(createContentDto: CreateContentDto): Promise<Content> {
     return await this.contentModel.create(createContentDto);

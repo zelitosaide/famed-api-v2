@@ -4,7 +4,7 @@ import { AppService } from "./app.service";
 
 import { MongooseModule } from "@nestjs/mongoose";
 import { LinksModule } from "./links/links.module";
-import { ContentsModule } from './contents/contents.module';
+import { ContentsModule } from "./contents/contents.module";
 
 @Module({
   imports: [
