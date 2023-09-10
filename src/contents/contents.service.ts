@@ -31,7 +31,7 @@ export class ContentsService {
     return `This action updates a #${id} content`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} content`;
+  async remove(id: string) {
+    return await this.contentModel.findByIdAndRemove({ _id: id }).exec();
   }
 }
