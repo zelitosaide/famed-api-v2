@@ -13,12 +13,16 @@ export class ContentsService {
     return await this.contentModel.create(createContentDto);
   }
 
-  findAll() {
-    return `This action returns all contents`;
+  async findAll(): Promise<Content[]> {
+    return this.contentModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} content`;
+  async findOne(id: string): Promise<Content> {
+    return this.contentModel.findOne({ _id: id }).exec();
+  }
+
+  async findBySegment(segment: string): Promise<Content> {
+    return this.contentModel.findOne({ segment }).exec();
   }
 
   update(id: number, updateContentDto: UpdateContentDto) {
