@@ -37,8 +37,8 @@ export class ContentsController {
   }
 
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateContentDto: UpdateContentDto) {
-    return this.contentsService.update(+id, updateContentDto);
+  async update(@Param("id") id: string, @Body() updateContentDto: UpdateContentDto) {
+    return this.contentsService.update(id, updateContentDto);
   }
 
   @Delete(":id")

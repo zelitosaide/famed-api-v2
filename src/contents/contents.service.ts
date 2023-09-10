@@ -27,8 +27,10 @@ export class ContentsService {
     return this.contentModel.findOne({ segment }).exec();
   }
 
-  update(id: number, updateContentDto: UpdateContentDto) {
-    return `This action updates a #${id} content`;
+  async update(id: string, updateContentDto: UpdateContentDto) {
+    return await this.contentModel
+      .findByIdAndUpdate({ _id: id }, updateContentDto, { new: true })
+      .exec();
   }
 
   async remove(id: string) {
