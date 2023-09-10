@@ -33,7 +33,6 @@ export class LinksController {
 
   @Get(":id")
   async findOne(@Param("id") id: string): Promise<Link> {
-    console.log("ola");
     return this.linksService.findOne(id);
   }
 
