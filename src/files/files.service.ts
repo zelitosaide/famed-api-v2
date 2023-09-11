@@ -1,9 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { CreateFileDto } from "./dto/create-file.dto";
 import { UpdateFileDto } from "./dto/update-file.dto";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { File } from "./schemas/file.schema";
 
 @Injectable()
 export class FilesService {
+  constructor(@InjectModel(File.name) private linkModel: Model<File>) {}
+  
   create(createFileDto: CreateFileDto) {
     return "This action adds a new file";
   }
