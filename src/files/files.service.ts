@@ -13,43 +13,23 @@ export class FilesService {
     return await this.fileModel.create(createFileDto);
   }
 
-  async findAll(): Promise<Link[]> {
-    return this.linkModel.find().exec();
+  async findAll(): Promise<File[]> {
+    return this.fileModel.find().exec();
   }
 
-  async findOne(id: string): Promise<Link> {
-    return this.linkModel.findOne({ _id: id }).exec();
+  async findOne(id: string): Promise<File> {
+    return this.fileModel.findOne({ _id: id }).exec();
   }
 
-  async findByCategory(category: string): Promise<Link[]> {
-    return this.linkModel.find({ category }).exec();
+  async findByCategory(category: string): Promise<File[]> {
+    return this.fileModel.find({ category }).exec();
   }
 
-  update(id: number, updateLinkDto: UpdateLinkDto) {
-    return `This action updates a #${id} link`;
+  update(id: number, updateFileDto: UpdateFileDto) {
+    return `This action updates a #${id} file`;
   }
 
   async remove(id: string) {
-    return await this.linkModel.findByIdAndRemove({ _id: id }).exec();
+    return await this.fileModel.findByIdAndRemove({ _id: id }).exec();
   }
-
-  // create(createFileDto: CreateFileDto) {
-  //   return "This action adds a new file";
-  // }
-
-  // findAll() {
-  //   return `This action returns all files`;
-  // }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} file`;
-  // }
-
-  // update(id: number, updateFileDto: UpdateFileDto) {
-  //   return `This action updates a #${id} file`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} file`;
-  // }
 }

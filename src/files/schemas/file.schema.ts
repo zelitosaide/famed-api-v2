@@ -13,6 +13,9 @@ export class File {
 
   @Prop()
   caption: string;
+
+  @Prop()
+  type: string;
 }
 
 export const FileSchema = SchemaFactory.createForClass(File);
