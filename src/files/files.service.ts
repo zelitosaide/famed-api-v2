@@ -7,25 +7,49 @@ import { File } from "./schemas/file.schema";
 
 @Injectable()
 export class FilesService {
-  constructor(@InjectModel(File.name) private linkModel: Model<File>) {}
-  
-  create(createFileDto: CreateFileDto) {
-    return "This action adds a new file";
+  constructor(@InjectModel(File.name) private fileModel: Model<File>) {}
+
+  async create(createFileDto: CreateFileDto): Promise<File> {
+    return await this.fileModel.create(createFileDto);
   }
 
-  findAll() {
-    return `This action returns all files`;
+  async findAll(): Promise<Link[]> {
+    return this.linkModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} file`;
+  async findOne(id: string): Promise<Link> {
+    return this.linkModel.findOne({ _id: id }).exec();
   }
 
-  update(id: number, updateFileDto: UpdateFileDto) {
-    return `This action updates a #${id} file`;
+  async findByCategory(category: string): Promise<Link[]> {
+    return this.linkModel.find({ category }).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} file`;
+  update(id: number, updateLinkDto: UpdateLinkDto) {
+    return `This action updates a #${id} link`;
   }
+
+  async remove(id: string) {
+    return await this.linkModel.findByIdAndRemove({ _id: id }).exec();
+  }
+
+  // create(createFileDto: CreateFileDto) {
+  //   return "This action adds a new file";
+  // }
+
+  // findAll() {
+  //   return `This action returns all files`;
+  // }
+
+  // findOne(id: number) {
+  //   return `This action returns a #${id} file`;
+  // }
+
+  // update(id: number, updateFileDto: UpdateFileDto) {
+  //   return `This action updates a #${id} file`;
+  // }
+
+  // remove(id: number) {
+  //   return `This action removes a #${id} file`;
+  // }
 }

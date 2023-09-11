@@ -8,7 +8,10 @@ export class File {
   @Prop({ required: true, unique: true })
   url: string;
 
-  @Prop({ required: true })
+  @Prop({ default: "TipTap" })
+  category: string;
+
+  @Prop()
   caption: string;
 }
 
