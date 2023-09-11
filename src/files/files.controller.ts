@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseInterceptors,
+  UploadedFile,
 } from "@nestjs/common";
 import { FilesService } from "./files.service";
 import { CreateFileDto } from "./dto/create-file.dto";
@@ -32,7 +33,10 @@ export class FilesController {
       }),
     }),
   )
-  async create(@Body() createFileDto: CreateFileDto) {
+  async create(
+    @Body() createFileDto: CreateFileDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
     return await this.filesService.create(createFileDto);
   }
 
