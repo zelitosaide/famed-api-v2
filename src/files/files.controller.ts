@@ -39,7 +39,7 @@ export class FilesController {
   ) {
     return await this.filesService.create({
       category: createFileDto?.category,
-      type: createFileDto?.type,
+      type: file.mimetype,
       caption: createFileDto?.caption,
       url: file.path,
     });
