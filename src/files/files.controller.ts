@@ -10,24 +10,30 @@ import {
 import { FilesService } from "./files.service";
 import { CreateFileDto } from "./dto/create-file.dto";
 import { UpdateFileDto } from "./dto/update-file.dto";
+import { File } from "./schemas/file.schema";
 
 @Controller("files")
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
   @Post()
-  create(@Body() createFileDto: CreateFileDto) {
-    return this.filesService.create(createFileDto);
+  async create(@Body() createFileDto: CreateFileDto) {
+    return await this.filesService.create(createFileDto);
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<File[]> {
     return this.filesService.findAll();
   }
 
+  @Get("category/:category")
+  async findByCategory(@Param("category") category: string): Promise<File[]> {
+    return this.filesService.findByCategory(category);
+  }
+
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.filesService.findOne(+id);
+  async findOne(@Param("id") id: string): Promise<File> {
+    return this.filesService.findOne(id);
   }
 
   @Patch(":id")
@@ -36,7 +42,7 @@ export class FilesController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.filesService.remove(+id);
+  async remove(@Param("id") id: string) {
+    return this.filesService.remove(id);
   }
 }
