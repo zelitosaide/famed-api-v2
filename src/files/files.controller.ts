@@ -37,7 +37,12 @@ export class FilesController {
     @Body() createFileDto: CreateFileDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    return await this.filesService.create(createFileDto);
+    return await this.filesService.create({
+      category: createFileDto?.category,
+      type: createFileDto?.type,
+      caption: createFileDto?.caption,
+      url: file.path,
+    });
   }
 
   @Get()
