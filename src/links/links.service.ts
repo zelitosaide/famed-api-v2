@@ -24,6 +24,9 @@ export class LinksService {
   async findByCategory(category: string): Promise<Link[]> {
     return this.linkModel.find({ category }).exec();
   }
+  async findByTitle(title: string): Promise<Link> {
+    return this.linkModel.findOne({ title }).exec();
+  }
 
   update(id: number, updateLinkDto: UpdateLinkDto) {
     return `This action updates a #${id} link`;
