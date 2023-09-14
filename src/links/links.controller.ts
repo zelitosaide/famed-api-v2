@@ -31,6 +31,11 @@ export class LinksController {
     return this.linksService.findByCategory(category);
   }
 
+  @Get("title/:title")
+  async findByTitle(@Param("title") title: string): Promise<Link> {
+    return this.linksService.findByTitle(title);
+  }
+
   @Get(":id")
   async findOne(@Param("id") id: string): Promise<Link> {
     return this.linksService.findOne(id);
