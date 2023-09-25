@@ -15,19 +15,19 @@ export class PublicationsService {
     return await this.publicationModel.create(createPublicationDto);
   }
 
-  findAll() {
-    return `This action returns all publications`;
+  async findAll(): Promise<Publication[]> {
+    return this.publicationModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} publication`;
+  async findOne(id: string): Promise<Publication> {
+    return this.publicationModel.findOne({ _id: id }).exec();
   }
 
   update(id: number, updatePublicationDto: UpdatePublicationDto) {
     return `This action updates a #${id} publication`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} publication`;
+  async remove(id: string) {
+    return await this.publicationModel.findByIdAndRemove({ _id: id }).exec();
   }
 }

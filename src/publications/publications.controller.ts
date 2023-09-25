@@ -10,24 +10,25 @@ import {
 import { PublicationsService } from "./publications.service";
 import { CreatePublicationDto } from "./dto/create-publication.dto";
 import { UpdatePublicationDto } from "./dto/update-publication.dto";
+import { Publication } from "./schemas/publication.schema";
 
 @Controller("publications")
 export class PublicationsController {
   constructor(private readonly publicationsService: PublicationsService) {}
 
   @Post()
-  create(@Body() createPublicationDto: CreatePublicationDto) {
-    return this.publicationsService.create(createPublicationDto);
+  async create(@Body() createPublicationDto: CreatePublicationDto) {
+    return await this.publicationsService.create(createPublicationDto);
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Publication[]> {
     return this.publicationsService.findAll();
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.publicationsService.findOne(+id);
+  async findOne(@Param("id") id: string): Promise<Publication> {
+    return this.publicationsService.findOne(id);
   }
 
   @Patch(":id")
@@ -39,7 +40,7 @@ export class PublicationsController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.publicationsService.remove(+id);
+  async remove(@Param("id") id: string) {
+    return this.publicationsService.remove(id);
   }
 }
