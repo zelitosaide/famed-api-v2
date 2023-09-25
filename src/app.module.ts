@@ -8,6 +8,10 @@ import { ContentsModule } from "./contents/contents.module";
 import { FilesModule } from "./files/files.module";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
+import { CoursesModule } from "./courses/courses.module";
+import { NewsModule } from "./news/news.module";
+import { ProjectsModule } from "./projects/projects.module";
+import { PublicationsModule } from "./publications/publications.module";
 
 @Module({
   imports: [
@@ -17,8 +21,12 @@ import { join } from "path";
     FilesModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "..", "uploads"),
-      serveRoot: "/uploads"
+      serveRoot: "/uploads",
     }),
+    CoursesModule,
+    NewsModule,
+    ProjectsModule,
+    PublicationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
