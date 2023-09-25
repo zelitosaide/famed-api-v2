@@ -11,8 +11,8 @@ export class PublicationsService {
     @InjectModel(Publication.name) private publicationModel: Model<Publication>,
   ) {}
 
-  create(createPublicationDto: CreatePublicationDto) {
-    return "This action adds a new publication";
+  async create(createPublicationDto: CreatePublicationDto): Promise<Publication> {
+    return await this.publicationModel.create(createPublicationDto);
   }
 
   findAll() {
