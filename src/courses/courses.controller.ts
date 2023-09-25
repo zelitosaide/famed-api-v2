@@ -10,24 +10,25 @@ import {
 import { CoursesService } from "./courses.service";
 import { CreateCourseDto } from "./dto/create-course.dto";
 import { UpdateCourseDto } from "./dto/update-course.dto";
+import { Course } from "./schemas/course.schema";
 
 @Controller("courses")
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
   @Post()
-  create(@Body() createCourseDto: CreateCourseDto) {
-    return this.coursesService.create(createCourseDto);
+  async create(@Body() createCourseDto: CreateCourseDto) {
+    return await this.coursesService.create(createCourseDto);
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Course[]> {
     return this.coursesService.findAll();
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.coursesService.findOne(+id);
+  async findOne(@Param("id") id: string): Promise<Course> {
+    return this.coursesService.findOne(id);
   }
 
   @Patch(":id")
@@ -36,7 +37,7 @@ export class CoursesController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.coursesService.remove(+id);
+  async remove(@Param("id") id: string) {
+    return this.coursesService.remove(id);
   }
 }

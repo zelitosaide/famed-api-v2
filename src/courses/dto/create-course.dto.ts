@@ -6,4 +6,3 @@ export class CreateCourseDto {
   youtubeApiKey: string;
   content: string;
 }
-

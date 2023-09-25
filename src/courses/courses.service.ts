@@ -9,23 +9,23 @@ import { Model } from "mongoose";
 export class CoursesService {
   constructor(@InjectModel(Course.name) private courseModel: Model<Course>) {}
 
-  create(createCourseDto: CreateCourseDto) {
-    return "This action adds a new course";
+  async create(createCourseDto: CreateCourseDto): Promise<Course> {
+    return await this.courseModel.create(createCourseDto);
   }
 
-  findAll() {
-    return `This action returns all courses`;
+  async findAll(): Promise<Course[]> {
+    return this.courseModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} course`;
+  async findOne(id: string): Promise<Course> {
+    return this.courseModel.findOne({ _id: id }).exec();
   }
 
   update(id: number, updateCourseDto: UpdateCourseDto) {
     return `This action updates a #${id} course`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} course`;
+  async remove(id: string) {
+    return await this.courseModel.findByIdAndRemove({ _id: id }).exec();
   }
 }
