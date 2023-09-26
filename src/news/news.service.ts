@@ -7,10 +7,10 @@ import { News } from "./schemas/new.schema";
 
 @Injectable()
 export class NewsService {
-  constructor(@InjectModel(News.name) private newModel: Model<News>) {}
+  constructor(@InjectModel(News.name) private newsModel: Model<News>) {}
 
   async create(createNewsDto: CreateNewsDto): Promise<News> {
-    return await this.newModel.create(createNewsDto);
+    return await this.newsModel.create(createNewsDto);
   }
 
   findAll() {
