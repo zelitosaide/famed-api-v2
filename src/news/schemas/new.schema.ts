@@ -8,23 +8,14 @@ export class New {
   @Prop({ required: true })
   title: string;
 
-  @Prop()
-  category: string;
-
-  @Prop()
+  @Prop({ required: true })
   description: string;
 
-  @Prop()
-  segment: string;
+  @Prop({ default: "Start typing here..." })
+  content: string;
 
-  @Prop()
-  href: string;
-
-  @Prop()
-  iconName: string;
-
-  @Prop([Object])
-  children: Object[];
+  @Prop({ default: "Dep. Ciências Fisiológicas" })
+  department: string;
 }
 
 export const NewSchema = SchemaFactory.createForClass(New);
