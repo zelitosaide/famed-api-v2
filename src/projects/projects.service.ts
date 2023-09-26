@@ -9,8 +9,8 @@ import { Project } from "./schemas/project.schema";
 export class ProjectsService {
   constructor(@InjectModel(Project.name) private projectModel: Model<Project>) {}
 
-  create(createProjectDto: CreateProjectDto) {
-    return "This action adds a new project";
+  async create(createProjectDto: CreateProjectDto): Promise<Project> {
+    return await this.projectModel.create(createProjectDto);
   }
 
   findAll() {
