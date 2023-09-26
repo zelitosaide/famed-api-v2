@@ -16,6 +16,9 @@ export class New {
 
   @Prop({ default: "Dep. Ciências Fisiológicas" })
   department: string;
+
+  @Prop({ required: true })
+  image: string;
 }
 
 export const NewSchema = SchemaFactory.createForClass(New);
