@@ -32,10 +32,10 @@ export class Project {
   @Prop([Object])
   financiers: Object[];
 
-  @Prop({ required: true })
+  @Prop({ required: true, default: Date.now() })
   projectStartDate: Date;
 
-  @Prop({ required: true })
+  @Prop({ required: true, default: Date.now() })
   projectEndDate: Date;
 }
 
