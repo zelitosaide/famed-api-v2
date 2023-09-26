@@ -34,7 +34,7 @@ export class Project {
 
   @Prop()
   projectStartDate: Date;
-  
+
   @Prop()
   projectEndDate: Date;
 }
