@@ -7,25 +7,27 @@ import { Project } from "./schemas/project.schema";
 
 @Injectable()
 export class ProjectsService {
-  constructor(@InjectModel(Project.name) private projectModel: Model<Project>) {}
+  constructor(
+    @InjectModel(Project.name) private projectModel: Model<Project>,
+  ) {}
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
     return await this.projectModel.create(createProjectDto);
   }
 
-  findAll() {
-    return `This action returns all projects`;
+  async findAll(): Promise<Project[]> {
+    return this.projectModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(id: string): Promise<Project> {
+    return this.projectModel.findOne({ _id: id }).exec();
   }
 
   update(id: number, updateProjectDto: UpdateProjectDto) {
     return `This action updates a #${id} project`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: string) {
+    return await this.projectModel.findByIdAndRemove({ _id: id }).exec();
   }
 }
