@@ -10,24 +10,25 @@ import {
 import { ProjectsService } from "./projects.service";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
+import { Project } from "./schemas/project.schema";
 
 @Controller("projects")
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Post()
-  create(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectsService.create(createProjectDto);
+  async create(@Body() createProjectDto: CreateProjectDto) {
+    return await this.projectsService.create(createProjectDto);
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Project[]> {
     return this.projectsService.findAll();
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.projectsService.findOne(+id);
+  async findOne(@Param("id") id: string): Promise<Project> {
+    return this.projectsService.findOne(id);
   }
 
   @Patch(":id")
@@ -36,7 +37,7 @@ export class ProjectsController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.projectsService.remove(+id);
+  async remove(@Param("id") id: string) {
+    return this.projectsService.remove(id);
   }
 }
