@@ -11,19 +11,19 @@ export class Project {
   @Prop({ required: true })
   description: string;
 
-  @Prop()
+  @Prop({ default: Date.now() })
   regNumBioethic: string;
 
-  @Prop()
+  @Prop({ default: "Dep. Ciências Fisiológicas" })
   department: string;
 
   @Prop({ default: Date.now() })
   approvalDate: Date;
 
-  @Prop()
+  @Prop({ default: "Type title here..." })
   content: string;
 
-  @Prop()
+  @Prop({ required: true })
   thumbnail: string;
 
   @Prop([Object])
@@ -32,10 +32,10 @@ export class Project {
   @Prop([Object])
   financiers: Object[];
 
-  @Prop()
+  @Prop({ required: true })
   projectStartDate: Date;
 
-  @Prop()
+  @Prop({ required: true })
   projectEndDate: Date;
 }
 
