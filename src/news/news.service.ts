@@ -13,19 +13,19 @@ export class NewsService {
     return await this.newsModel.create(createNewsDto);
   }
 
-  findAll() {
-    return `This action returns all news`;
+  async findAll(): Promise<News[]> {
+    return this.newsModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} news`;
+  async findOne(id: string): Promise<News> {
+    return this.newsModel.findOne({ _id: id }).exec();
   }
 
   update(id: number, updateNewsDto: UpdateNewsDto) {
     return `This action updates a #${id} news`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} news`;
+  async remove(id: string) {
+    return await this.newsModel.findByIdAndRemove({ _id: id }).exec();
   }
 }
