@@ -24,7 +24,7 @@ export class FilesController {
   @UseInterceptors(
     FileInterceptor("file", {
       storage: diskStorage({
-        destination: "uploads",
+        destination: "uploads/tiptap",
         filename(req, file, callback) {
           const uniquePreffix =
             Date.now() + "-" + Math.round(Math.random() * 1e9);
