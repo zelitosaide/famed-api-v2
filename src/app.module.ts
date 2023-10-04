@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 
 import { MongooseModule } from "@nestjs/mongoose";
 import { LinksModule } from "./links/links.module";
@@ -13,9 +14,17 @@ import { NewsModule } from "./news/news.module";
 import { ProjectsModule } from "./projects/projects.module";
 import { PublicationsModule } from "./publications/publications.module";
 
+import configuration from "./config/configuration";
+
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://localhost/fameddbv2"),
+    // MongooseModule.forRoot("mongodb://localhost/fameddbv2"),
+    MongooseModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get("connectionUrl"),
+      }),
+    }),
     LinksModule,
     ContentsModule,
     FilesModule,
@@ -27,6 +36,11 @@ import { PublicationsModule } from "./publications/publications.module";
     NewsModule,
     ProjectsModule,
     PublicationsModule,
+    ConfigModule.forRoot({
+      ignoreEnvFile: true,
+      isGlobal: true,
+      load: [configuration],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
