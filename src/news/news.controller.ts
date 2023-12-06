@@ -56,6 +56,7 @@ export class NewsController {
 
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateNewsDto: UpdateNewsDto) {
+    console.log(updateNewsDto);
     return this.newsService.update(+id, updateNewsDto);
   }
 
