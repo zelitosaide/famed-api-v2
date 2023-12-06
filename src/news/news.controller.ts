@@ -73,7 +73,11 @@ export class NewsController {
     @UploadedFile() image: Express.Multer.File,
   ) {
     // return this.newsService.update(+id, updateNewsDto);
-    return {...updateNewsDto, image: image.path };
+    if (image.path.includes("undefined")) {
+      return updateNewsDto;
+    } else {
+      return { ...updateNewsDto, image: image.path };
+    }
   }
 
   @Delete(":id")
