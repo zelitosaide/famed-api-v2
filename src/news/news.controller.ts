@@ -78,7 +78,10 @@ export class NewsController {
       return this.newsService.update(id, updateNewsDto);
     } else {
       // return { ...updateNewsDto, image: image.path };
-      return this.newsService.update(id, { ...updateNewsDto, image: image.path });
+      return this.newsService.update(id, {
+        ...updateNewsDto,
+        image: image.path,
+      });
     }
   }
 

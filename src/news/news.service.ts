@@ -21,8 +21,11 @@ export class NewsService {
     return this.newsModel.findOne({ _id: id }).exec();
   }
 
-  update(id: string, updateNewsDto: UpdateNewsDto) {
-    return updateNewsDto;
+  async update(id: string, updateNewsDto: UpdateNewsDto) {
+    // return updateNewsDto;
+    return await this.newsModel
+      .findByIdAndUpdate({ _id: id }, updateNewsDto, { new: true })
+      .exec();
   }
 
   async remove(id: string) {
