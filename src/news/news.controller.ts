@@ -40,6 +40,8 @@ export class NewsController {
     return await this.newsService.create({
       title: createNewsDto.title,
       description: createNewsDto.description,
+      department: createNewsDto.department,
+      content: createNewsDto.content,
       image: image.path,
     });
   }
