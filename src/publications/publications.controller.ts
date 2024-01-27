@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from "@nestjs/common";
 import { PublicationsService } from "./publications.service";
 import { CreatePublicationDto } from "./dto/create-publication.dto";
@@ -22,8 +23,13 @@ export class PublicationsController {
   }
 
   @Get()
-  async findAll(): Promise<Publication[]> {
-    return this.publicationsService.findAll();
+  async findAll(@Query() query): Promise<Publication[]> {
+    return this.publicationsService.findAll(query.query, query.page);
+  }
+
+  @Get("publication-pages")
+  async publicationsPages(@Query() query) {
+    return this.publicationsService.publicationsPages(query.query);
   }
 
   @Get(":id")
@@ -36,7 +42,7 @@ export class PublicationsController {
     @Param("id") id: string,
     @Body() updatePublicationDto: UpdatePublicationDto,
   ) {
-    return this.publicationsService.update(+id, updatePublicationDto);
+    return this.publicationsService.update(id, updatePublicationDto);
   }
 
   @Delete(":id")

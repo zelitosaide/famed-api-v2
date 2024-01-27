@@ -9,12 +9,31 @@ import { News } from "./schemas/new.schema";
 export class NewsService {
   constructor(@InjectModel(News.name) private newsModel: Model<News>) {}
 
+  private readonly ITEMS_PER_PAGE = 7;
+
   async create(createNewsDto: CreateNewsDto): Promise<News> {
     return await this.newsModel.create(createNewsDto);
   }
 
-  async findAll(): Promise<News[]> {
-    return this.newsModel.find().exec();
+  async findAll(query: string, page: number): Promise<News[]> {
+    const skip = (page - 1) * this.ITEMS_PER_PAGE;
+
+    if (query) {
+      return this.newsModel
+        .find({ $text: { $search: query } })
+        .skip(skip)
+        .limit(this.ITEMS_PER_PAGE)
+        .sort({ createdAt: -1 })
+        .allowDiskUse(true)
+        .exec();
+    }
+    return this.newsModel
+      .find()
+      .skip(skip)
+      .limit(this.ITEMS_PER_PAGE)
+      .sort({ createdAt: -1 })
+      .allowDiskUse(true)
+      .exec();
   }
 
   async findOne(id: string): Promise<News> {
@@ -22,7 +41,6 @@ export class NewsService {
   }
 
   async update(id: string, updateNewsDto: UpdateNewsDto) {
-    // return updateNewsDto;
     return await this.newsModel
       .findByIdAndUpdate({ _id: id }, updateNewsDto, { new: true })
       .exec();
@@ -30,5 +48,17 @@ export class NewsService {
 
   async remove(id: string) {
     return await this.newsModel.findByIdAndRemove({ _id: id }).exec();
+  }
+
+  async newsPages(query: string) {
+    let totalPages: number;
+    if (query) {
+      totalPages = await this.newsModel
+        .countDocuments({ $text: { $search: query } })
+        .exec();
+    } else {
+      totalPages = await this.newsModel.countDocuments({}).exec();
+    }
+    return Math.ceil(totalPages / this.ITEMS_PER_PAGE);
   }
 }

@@ -11,25 +11,58 @@ export class PublicationsService {
     @InjectModel(Publication.name) private publicationModel: Model<Publication>,
   ) {}
 
+  private readonly ITEMS_PER_PAGE = 7;
+
   async create(
     createPublicationDto: CreatePublicationDto,
   ): Promise<Publication> {
     return await this.publicationModel.create(createPublicationDto);
   }
 
-  async findAll(): Promise<Publication[]> {
-    return this.publicationModel.find().exec();
+  async findAll(query: string, page: number): Promise<Publication[]> {
+    const skip = (page - 1) * this.ITEMS_PER_PAGE;
+
+    if (query) {
+      return this.publicationModel
+        .find({ $text: { $search: query } })
+        .skip(skip)
+        .limit(this.ITEMS_PER_PAGE)
+        .sort({ createdAt: -1 })
+        .allowDiskUse(true)
+        .exec();
+    }
+    return this.publicationModel
+      .find()
+      .skip(skip)
+      .limit(this.ITEMS_PER_PAGE)
+      .sort({ createdAt: -1 })
+      .allowDiskUse(true)
+      .exec();
   }
 
   async findOne(id: string): Promise<Publication> {
     return this.publicationModel.findOne({ _id: id }).exec();
   }
 
-  update(id: number, updatePublicationDto: UpdatePublicationDto) {
-    return `This action updates a #${id} publication`;
+  async update(id: string, updatePublicationDto: UpdatePublicationDto) {
+    return await this.publicationModel
+      .findByIdAndUpdate({ _id: id }, updatePublicationDto, { new: true })
+      .exec();
   }
 
   async remove(id: string) {
     return await this.publicationModel.findByIdAndRemove({ _id: id }).exec();
+  }
+
+  async publicationsPages(query: string) {
+    let totalPages: number;
+    if (query) {
+      totalPages = await this.publicationModel
+        .countDocuments({ $text: { $search: query } })
+        .exec();
+    } else {
+      totalPages = await this.publicationModel.countDocuments({}).exec();
+    }
+    return Math.ceil(totalPages / this.ITEMS_PER_PAGE);
   }
 }

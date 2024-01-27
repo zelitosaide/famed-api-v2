@@ -13,6 +13,7 @@ import { CoursesModule } from "./courses/courses.module";
 import { NewsModule } from "./news/news.module";
 import { ProjectsModule } from "./projects/projects.module";
 import { PublicationsModule } from "./publications/publications.module";
+import { DepartmentsModule } from "./departments/departments.module";
 
 import configuration from "./config/configuration";
 
@@ -41,6 +42,7 @@ import configuration from "./config/configuration";
       isGlobal: true,
       load: [configuration],
     }),
+    DepartmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

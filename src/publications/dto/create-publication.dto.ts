@@ -1,9 +1,23 @@
+import { IsNotEmpty } from "class-validator";
+
 export class CreatePublicationDto {
-  title: string;
-  pmid: string;
-  department: string;
+  @IsNotEmpty()
+  readonly title: string;
+
+  @IsNotEmpty()
+  readonly pmid: string;
+
+  @IsNotEmpty()
+  readonly department: string;
+
   authors: String[];
-  review: string;
-  url: string;
-  publicationDate: Date;
+
+  @IsNotEmpty()
+  readonly review: string;
+
+  @IsNotEmpty()
+  readonly url: string;
+
+  @IsNotEmpty()
+  readonly publicationDate: Date;
 }

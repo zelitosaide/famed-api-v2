@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from "@nestjs/common";
 import { ProjectsService } from "./projects.service";
 import { CreateProjectDto } from "./dto/create-project.dto";
@@ -26,6 +27,7 @@ export class ProjectsController {
       storage: diskStorage({
         destination: "uploads/projects/thumbnails",
         filename(req, file, callback) {
+          // if (file.originalname === "undefined") { }
           const uniquePreffix =
             Date.now() + "-" + Math.round(Math.random() * 1e9);
           callback(null, uniquePreffix + "-" + file.originalname);
@@ -37,16 +39,27 @@ export class ProjectsController {
     @Body() createProjectDto: CreateProjectDto,
     @UploadedFile() thumbnail: Express.Multer.File,
   ) {
+    if (thumbnail.path.includes("undefined")) {
+      return await this.projectsService.create({
+        ...createProjectDto,
+        thumbnail: "undefined",
+      });
+    }
+
     return await this.projectsService.create({
-      title: createProjectDto.title,
-      description: createProjectDto.description,
+      ...createProjectDto,
       thumbnail: thumbnail.path,
     });
   }
 
   @Get()
-  async findAll(): Promise<Project[]> {
-    return this.projectsService.findAll();
+  async findAll(@Query() query): Promise<Project[]> {
+    return this.projectsService.findAll(query.query, query.page);
+  }
+
+  @Get("project-pages")
+  async projectsPages(@Query() query) {
+    return this.projectsService.projectsPages(query.query);
   }
 
   @Get(":id")
@@ -55,8 +68,32 @@ export class ProjectsController {
   }
 
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateProjectDto: UpdateProjectDto) {
-    return this.projectsService.update(+id, updateProjectDto);
+  @UseInterceptors(
+    FileInterceptor("thumbnail", {
+      storage: diskStorage({
+        destination: "uploads/projects/thumbnails/abc",
+        filename(req, file, callback) {
+          // if (file.originalname === "undefined") { }
+          const uniquePreffix =
+            Date.now() + "-" + Math.round(Math.random() * 1e9);
+          callback(null, uniquePreffix + "-" + file.originalname);
+        },
+      }),
+    }),
+  )
+  update(
+    @Param("id") id: string,
+    @Body() updateProjectDto: UpdateProjectDto,
+    @UploadedFile() thumbnail: Express.Multer.File,
+  ) {
+    if (thumbnail.path.includes("undefined")) {
+      return this.projectsService.update(id, updateProjectDto);
+    } else {
+      return this.projectsService.update(id, {
+        ...updateProjectDto,
+        thumbnail: thumbnail.path,
+      });
+    }
   }
 
   @Delete(":id")

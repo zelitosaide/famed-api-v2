@@ -1,8 +1,21 @@
+import { IsNotEmpty, IsOptional } from "class-validator";
+
 export class CreateCourseDto {
-  title: string;
-  description: string;
-  duration: string;
-  playlistId: string;
-  youtubeApiKey: string;
-  content: string;
+  @IsNotEmpty()
+  readonly title: string;
+
+  @IsNotEmpty()
+  readonly description: string;
+
+  @IsNotEmpty()
+  readonly duration: string;
+
+  @IsNotEmpty()
+  readonly playlistId: string;
+
+  @IsNotEmpty()
+  readonly youtubeApiKey: string;
+
+  @IsOptional()
+  readonly content: string;
 }

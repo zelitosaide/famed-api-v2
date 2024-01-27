@@ -8,6 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from "@nestjs/common";
 import { NewsService } from "./news.service";
 import { CreateNewsDto } from "./dto/create-news.dto";
@@ -26,6 +27,7 @@ export class NewsController {
       storage: diskStorage({
         destination: "uploads/news/images",
         filename(req, file, callback) {
+          // if (file.originalname === "undefined") { }
           const uniquePreffix =
             Date.now() + "-" + Math.round(Math.random() * 1e9);
           callback(null, uniquePreffix + "-" + file.originalname);
@@ -37,6 +39,16 @@ export class NewsController {
     @Body() createNewsDto: CreateNewsDto,
     @UploadedFile() image: Express.Multer.File,
   ) {
+    if (image.path.includes("undefined")) {
+      return await this.newsService.create({
+        title: createNewsDto.title,
+        description: createNewsDto.description,
+        department: createNewsDto.department,
+        content: createNewsDto.content,
+        image: "undefined",
+      });
+    }
+
     return await this.newsService.create({
       title: createNewsDto.title,
       description: createNewsDto.description,
@@ -47,8 +59,13 @@ export class NewsController {
   }
 
   @Get()
-  async findAll(): Promise<News[]> {
-    return this.newsService.findAll();
+  async findAll(@Query() query): Promise<News[]> {
+    return this.newsService.findAll(query.query, query.page);
+  }
+
+  @Get("news-pages")
+  async newsPages(@Query() query) {
+    return this.newsService.newsPages(query.query);
   }
 
   @Get(":id")
@@ -74,12 +91,9 @@ export class NewsController {
     @Body() updateNewsDto: UpdateNewsDto,
     @UploadedFile() image: Express.Multer.File,
   ) {
-    // return this.newsService.update(+id, updateNewsDto);
-    if (!image) {
-      // return updateNewsDto;
+    if (image.path.includes("undefined")) {
       return this.newsService.update(id, updateNewsDto);
     } else {
-      // return { ...updateNewsDto, image: image.path };
       return this.newsService.update(id, {
         ...updateNewsDto,
         image: image.path,

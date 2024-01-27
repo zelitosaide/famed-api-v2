@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from "@nestjs/common";
 import { CoursesService } from "./courses.service";
 import { CreateCourseDto } from "./dto/create-course.dto";
@@ -22,8 +23,13 @@ export class CoursesController {
   }
 
   @Get()
-  async findAll(): Promise<Course[]> {
-    return this.coursesService.findAll();
+  async findAll(@Query() query): Promise<Course[]> {
+    return this.coursesService.findAll(query.query, query.page);
+  }
+
+  @Get("course-pages")
+  async coursesPages(@Query() query) {
+    return this.coursesService.coursesPages(query.query);
   }
 
   @Get(":id")
@@ -33,7 +39,7 @@ export class CoursesController {
 
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.coursesService.update(+id, updateCourseDto);
+    return this.coursesService.update(id, updateCourseDto);
   }
 
   @Delete(":id")
