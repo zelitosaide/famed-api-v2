@@ -71,3 +71,13 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+```sh
+cp -R [Source] [Destination]
+cp -R /directory1 /directory2
+cp -R api/famed-v2/uploads/ uploads
+
+mv [Source] [Destination]
+mv /directory1 /directory2
+```

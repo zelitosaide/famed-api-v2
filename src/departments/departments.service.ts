@@ -26,7 +26,7 @@ export class DepartmentsService {
         .skip(skip)
         .limit(this.ITEMS_PER_PAGE)
         .sort({ createdAt: -1 })
-        .allowDiskUse(true)
+        // .allowDiskUse(true)
         .exec();
     }
     return this.departmentModel
@@ -34,7 +34,7 @@ export class DepartmentsService {
       .skip(skip)
       .limit(this.ITEMS_PER_PAGE)
       .sort({ createdAt: -1 })
-      .allowDiskUse(true)
+      // .allowDiskUse(true)
       .exec();
   }
 

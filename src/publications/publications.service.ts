@@ -28,7 +28,7 @@ export class PublicationsService {
         .skip(skip)
         .limit(this.ITEMS_PER_PAGE)
         .sort({ createdAt: -1 })
-        .allowDiskUse(true)
+        // .allowDiskUse(true)
         .exec();
     }
     return this.publicationModel
@@ -36,7 +36,7 @@ export class PublicationsService {
       .skip(skip)
       .limit(this.ITEMS_PER_PAGE)
       .sort({ createdAt: -1 })
-      .allowDiskUse(true)
+      // .allowDiskUse(true)
       .exec();
   }
 

@@ -24,7 +24,7 @@ export class NewsService {
         .skip(skip)
         .limit(this.ITEMS_PER_PAGE)
         .sort({ createdAt: -1 })
-        .allowDiskUse(true)
+        // .allowDiskUse(true)
         .exec();
     }
     return this.newsModel
@@ -32,7 +32,7 @@ export class NewsService {
       .skip(skip)
       .limit(this.ITEMS_PER_PAGE)
       .sort({ createdAt: -1 })
-      .allowDiskUse(true)
+      // .allowDiskUse(true)
       .exec();
   }
 

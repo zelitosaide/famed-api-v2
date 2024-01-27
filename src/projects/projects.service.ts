@@ -26,7 +26,7 @@ export class ProjectsService {
         .skip(skip)
         .limit(this.ITEMS_PER_PAGE)
         .sort({ createdAt: -1 })
-        .allowDiskUse(true)
+        // .allowDiskUse(true)
         .exec();
     }
     return this.projectModel
@@ -34,7 +34,7 @@ export class ProjectsService {
       .skip(skip)
       .limit(this.ITEMS_PER_PAGE)
       .sort({ createdAt: -1 })
-      .allowDiskUse(true)
+      // .allowDiskUse(true)
       .exec();
   }
 
