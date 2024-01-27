@@ -58,7 +58,11 @@ export class DepartmentsController {
 
   @Get()
   async findAll(@Query() query): Promise<Department[]> {
-    return this.departmentsService.findAll(query.query, query.page);
+    return this.departmentsService.findAll(
+      query.query,
+      query.page,
+      query.limit,
+    );
   }
 
   @Get("department-pages")

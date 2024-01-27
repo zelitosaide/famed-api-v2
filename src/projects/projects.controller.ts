@@ -54,7 +54,7 @@ export class ProjectsController {
 
   @Get()
   async findAll(@Query() query): Promise<Project[]> {
-    return this.projectsService.findAll(query.query, query.page);
+    return this.projectsService.findAll(query.query, query.page, query.limit);
   }
 
   @Get("project-pages")

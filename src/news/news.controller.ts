@@ -60,7 +60,8 @@ export class NewsController {
 
   @Get()
   async findAll(@Query() query): Promise<News[]> {
-    return this.newsService.findAll(query.query, query.page);
+    console.log(query);
+    return this.newsService.findAll(query.query, query.page, query.limit);
   }
 
   @Get("news-pages")

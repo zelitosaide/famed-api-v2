@@ -24,7 +24,7 @@ export class CoursesController {
 
   @Get()
   async findAll(@Query() query): Promise<Course[]> {
-    return this.coursesService.findAll(query.query, query.page);
+    return this.coursesService.findAll(query.query, query.page, query.limit);
   }
 
   @Get("course-pages")

@@ -17,25 +17,34 @@ export class ProjectsService {
     return await this.projectModel.create(createProjectDto);
   }
 
-  async findAll(query: string, page: number): Promise<Project[]> {
-    const skip = (page - 1) * this.ITEMS_PER_PAGE;
+  async findAll(
+    query: string,
+    page: number,
+    limit: number = this.ITEMS_PER_PAGE,
+  ): Promise<Project[]> {
+    // const skip = (page - 1) * this.ITEMS_PER_PAGE;
+    const skip = (page - 1) * limit;
 
     if (query) {
-      return this.projectModel
-        .find({ $text: { $search: query } })
+      return (
+        this.projectModel
+          .find({ $text: { $search: query } })
+          .skip(skip)
+          .limit(limit)
+          .sort({ createdAt: -1 })
+          // .allowDiskUse(true)
+          .exec()
+      );
+    }
+    return (
+      this.projectModel
+        .find()
         .skip(skip)
-        .limit(this.ITEMS_PER_PAGE)
+        .limit(limit)
         .sort({ createdAt: -1 })
         // .allowDiskUse(true)
-        .exec();
-    }
-    return this.projectModel
-      .find()
-      .skip(skip)
-      .limit(this.ITEMS_PER_PAGE)
-      .sort({ createdAt: -1 })
-      // .allowDiskUse(true)
-      .exec();
+        .exec()
+    );
   }
 
   async findOne(id: string): Promise<Project> {

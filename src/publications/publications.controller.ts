@@ -24,7 +24,11 @@ export class PublicationsController {
 
   @Get()
   async findAll(@Query() query): Promise<Publication[]> {
-    return this.publicationsService.findAll(query.query, query.page);
+    return this.publicationsService.findAll(
+      query.query,
+      query.page,
+      query.limit,
+    );
   }
 
   @Get("publication-pages")

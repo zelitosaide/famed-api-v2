@@ -15,25 +15,33 @@ export class NewsService {
     return await this.newsModel.create(createNewsDto);
   }
 
-  async findAll(query: string, page: number): Promise<News[]> {
-    const skip = (page - 1) * this.ITEMS_PER_PAGE;
+  async findAll(
+    query: string,
+    page: number,
+    limit: number = this.ITEMS_PER_PAGE,
+  ): Promise<News[]> {
+    const skip = (page - 1) * limit;
 
     if (query) {
-      return this.newsModel
-        .find({ $text: { $search: query } })
+      return (
+        this.newsModel
+          .find({ $text: { $search: query } })
+          .skip(skip)
+          .limit(limit)
+          .sort({ createdAt: -1 })
+          // .allowDiskUse(true)
+          .exec()
+      );
+    }
+    return (
+      this.newsModel
+        .find()
         .skip(skip)
-        .limit(this.ITEMS_PER_PAGE)
+        .limit(limit)
         .sort({ createdAt: -1 })
         // .allowDiskUse(true)
-        .exec();
-    }
-    return this.newsModel
-      .find()
-      .skip(skip)
-      .limit(this.ITEMS_PER_PAGE)
-      .sort({ createdAt: -1 })
-      // .allowDiskUse(true)
-      .exec();
+        .exec()
+    );
   }
 
   async findOne(id: string): Promise<News> {

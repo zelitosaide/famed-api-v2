@@ -19,25 +19,33 @@ export class PublicationsService {
     return await this.publicationModel.create(createPublicationDto);
   }
 
-  async findAll(query: string, page: number): Promise<Publication[]> {
-    const skip = (page - 1) * this.ITEMS_PER_PAGE;
+  async findAll(
+    query: string,
+    page: number,
+    limit: number = this.ITEMS_PER_PAGE,
+  ): Promise<Publication[]> {
+    const skip = (page - 1) * limit;
 
     if (query) {
-      return this.publicationModel
-        .find({ $text: { $search: query } })
+      return (
+        this.publicationModel
+          .find({ $text: { $search: query } })
+          .skip(skip)
+          .limit(limit)
+          .sort({ createdAt: -1 })
+          // .allowDiskUse(true)
+          .exec()
+      );
+    }
+    return (
+      this.publicationModel
+        .find()
         .skip(skip)
-        .limit(this.ITEMS_PER_PAGE)
+        .limit(limit)
         .sort({ createdAt: -1 })
         // .allowDiskUse(true)
-        .exec();
-    }
-    return this.publicationModel
-      .find()
-      .skip(skip)
-      .limit(this.ITEMS_PER_PAGE)
-      .sort({ createdAt: -1 })
-      // .allowDiskUse(true)
-      .exec();
+        .exec()
+    );
   }
 
   async findOne(id: string): Promise<Publication> {
