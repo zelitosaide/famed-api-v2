@@ -8,13 +8,13 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   // await app.listen(3001);
 
-  // const configService = app.get(ConfigService);
-  // const port = configService.get("port");
-  // const connectionUrl = configService.get("connectionUrl");
+  const configService = app.get(ConfigService);
+  const port = configService.get("port");
+  const connectionUrl = configService.get("connectionUrl");
 
-  await app.listen(3001, function () {
-    // await app.listen(port, function () {
-    // console.log(port, connectionUrl);
+  // await app.listen(3001, function () {
+  await app.listen(port, function () {
+    console.log(port, connectionUrl);
   });
 }
 bootstrap();

@@ -19,13 +19,13 @@ import configuration from "./config/configuration";
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://localhost/fameddbv2"),
-    // MongooseModule.forRootAsync({
-    //   inject: [ConfigService],
-    //   useFactory: async (configService: ConfigService) => ({
-    //     uri: configService.get("connectionUrl"),
-    //   }),
-    // }),
+    // MongooseModule.forRoot("mongodb://localhost/fameddbv2"),
+    MongooseModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get("connectionUrl"),
+      }),
+    }),
     LinksModule,
     ContentsModule,
     FilesModule,
