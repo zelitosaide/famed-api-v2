@@ -24,6 +24,9 @@ export class PublicationsController {
 
   @Get()
   async findAll(@Query() query): Promise<Publication[]> {
+    if (query.limit === "undefined") {
+      return this.publicationsService.findAll(query.query, query.page);
+    }
     return this.publicationsService.findAll(
       query.query,
       query.page,

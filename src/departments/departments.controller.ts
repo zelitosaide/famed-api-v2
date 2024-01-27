@@ -58,6 +58,9 @@ export class DepartmentsController {
 
   @Get()
   async findAll(@Query() query): Promise<Department[]> {
+    if (query.limit === "undefined") {
+      return this.departmentsService.findAll(query.query, query.page);
+    }
     return this.departmentsService.findAll(
       query.query,
       query.page,

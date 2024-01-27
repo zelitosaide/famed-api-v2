@@ -54,6 +54,9 @@ export class ProjectsController {
 
   @Get()
   async findAll(@Query() query): Promise<Project[]> {
+    if (query.limit === "undefined") {
+      return this.projectsService.findAll(query.query, query.page);
+    }
     return this.projectsService.findAll(query.query, query.page, query.limit);
   }
 

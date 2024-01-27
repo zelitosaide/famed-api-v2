@@ -24,6 +24,9 @@ export class CoursesController {
 
   @Get()
   async findAll(@Query() query): Promise<Course[]> {
+    if (query.limit === "undefined") {
+      return this.coursesService.findAll(query.query, query.page);
+    }
     return this.coursesService.findAll(query.query, query.page, query.limit);
   }
 
